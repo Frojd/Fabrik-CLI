@@ -17,9 +17,6 @@ class Generator(object):
         self.loader = jinja2.FileSystemLoader(templates_dir)
         self.environment = jinja2.Environment(loader=self.loader)
 
-    def get_stages_path(self):
-        return os.path.join(self.path, "stages")
-
     def create_index(self):
         template = self.environment.get_template("index.py.txt")
         output = template.render(stages=self.stages)
@@ -28,8 +25,34 @@ class Generator(object):
         os.makedirs(stage_dir)
 
         index_path = os.path.join(stage_dir, "__init__.py")
-        with open(index_path, "w") as fout:
-            fout.write(output)
+        self.write_file(output, index_path)
 
     def create_stage(self, name=None):
-        pass
+        template = self.environment.get_template("stage.py.txt")
+        stage = self.get_stage(name)
+        output = template.render(stage=stage)
+
+        stage_dir = self.get_stages_path()
+        file_path = os.path.join(stage_dir, "%s.py" % name)
+        self.write_file(output, file_path)
+
+    """
+    def create_stages(self):
+        for stage in self.stages:
+            self.create_stage(stage.name)
+    """
+
+    def get_stages_path(self):
+        return os.path.join(self.path, "stages")
+
+    def get_stage(self, name):
+        for stage in self.stages:
+            if stage["name"] == name:
+                return stage
+
+        return None
+
+    def write_file(self, content, path):
+        with open(path, "w") as fout:
+            fout.write(content)
+

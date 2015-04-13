@@ -39,4 +39,19 @@ class GeneratorTest(unittest.TestCase):
         contents = read_file("./tmp/stages/__init__.py")
         self.assertTrue("from demo import demo" in contents)
 
+    def test_stage_generation(self):
+        stages = [{
+            "name": "demo",
+            }, {
+            "name": "stage"
+        }]
+
+        gen = generator.Generator(stages=stages, path="./tmp")
+        gen.create_index()
+        gen.create_stage(name="demo")
+
+        self.assertTrue(os.path.exists("./tmp/stages/demo.py"))
+        contents = read_file("./tmp/stages/demo.py")
+
+        self.assertTrue("def demo:" in contents)
 
