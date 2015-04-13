@@ -1,3 +1,3 @@
-{% for stage in stages %}from {{ stage.name }} import {{ stage.name }}
+{% for stage in stages %}from {{ stage.NAME }} import {{ stage.NAME }}
 {% endfor %}
 

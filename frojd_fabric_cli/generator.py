@@ -1,4 +1,5 @@
 import os
+import re
 import jinja2
 
 
@@ -9,6 +10,8 @@ class Generator(object):
     environment = None
 
     def __init__(self, stages=None, path=None, *args, **kwargs):
+        self.validate_stages(stages)
+
         self.stages = stages
         self.path = path
 
@@ -41,19 +44,22 @@ class Generator(object):
 
     def create_stages(self):
         for stage in self.stages:
-            self.create_stage(stage["name"])
+            self.create_stage(stage["NAME"])
 
     def get_stages_path(self):
         return os.path.join(self.path, "stages")
 
     def get_stage(self, name):
         for stage in self.stages:
-            if stage["name"] == name:
+            if stage["NAME"] == name:
                 return stage
-
-        return None
 
     def write_file(self, content, path):
         with open(path, "w") as fout:
             fout.write(content)
+
+    def validate_stages(self, stages):
+        for stage in stages:
+            if not re.search("^\w{1,}$", stage["NAME"]):
+                raise Exception("Bad Configuration")
 

@@ -10,6 +10,7 @@ def read_file(path):
 
     return s
 
+
 class GeneratorTest(unittest.TestCase):
     def setUp(self):
         try:
@@ -25,9 +26,9 @@ class GeneratorTest(unittest.TestCase):
 
     def test_index_generation(self):
         stages = [{
-            "name": "demo",
+            "NAME": "demo",
             }, {
-            "name": "stage"
+            "NAME": "stage"
         }]
 
         gen = generator.Generator(stages=stages, path="./tmp")
@@ -44,9 +45,9 @@ class GeneratorTest(unittest.TestCase):
 
     def test_stage_generation(self):
         stages = [{
-            "name": "demo",
+            "NAME": "demo",
             }, {
-            "name": "stage"
+            "NAME": "stage"
         }]
 
         gen = generator.Generator(stages=stages, path="./tmp")
@@ -59,9 +60,9 @@ class GeneratorTest(unittest.TestCase):
 
     def test_stages_generation(self):
         stages = [{
-            "name": "demo",
+            "NAME": "demo",
             }, {
-            "name": "stage"
+            "NAME": "stage"
         }]
 
         gen = generator.Generator(stages=stages, path="./tmp")
@@ -69,3 +70,23 @@ class GeneratorTest(unittest.TestCase):
 
         self.assertTrue(os.path.exists("./tmp/stages/demo.py"))
         self.assertTrue(os.path.exists("./tmp/stages/stage.py"))
+
+    def test_invalid_stagename(self):
+        stages = [{
+            "NAME": "demo!"
+        }]
+
+        with self.assertRaises(Exception) as cm:
+            generator.Generator(stages=stages, path="./tmp")
+
+    def test_ssh_stage_info(self):
+        stages = [{
+            "NAME": "stage",
+            "FORWARD_AGENT": "True"
+        }]
+
+        gen = generator.Generator(stages=stages, path="./tmp")
+        gen.create_stages()
+
+        contents = read_file("./tmp/stages/stage.py")
+        self.assertTrue("env.forward_agent = True" in contents)
