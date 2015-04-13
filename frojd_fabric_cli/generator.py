@@ -33,14 +33,15 @@ class Generator(object):
         output = template.render(stage=stage)
 
         stage_dir = self.get_stages_path()
+        if not os.path.exists(stage_dir):
+            os.makedirs(stage_dir)
+
         file_path = os.path.join(stage_dir, "%s.py" % name)
         self.write_file(output, file_path)
 
-    """
     def create_stages(self):
         for stage in self.stages:
-            self.create_stage(stage.name)
-    """
+            self.create_stage(stage["name"])
 
     def get_stages_path(self):
         return os.path.join(self.path, "stages")

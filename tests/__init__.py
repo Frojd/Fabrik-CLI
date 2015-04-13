@@ -18,7 +18,10 @@ class GeneratorTest(unittest.TestCase):
             pass
 
     def tearDown(self):
-        shutil.rmtree("./tmp/stages")
+        try:
+            shutil.rmtree("./tmp/stages")
+        except OSError as exception:
+            pass
 
     def test_index_generation(self):
         stages = [{
@@ -47,7 +50,6 @@ class GeneratorTest(unittest.TestCase):
         }]
 
         gen = generator.Generator(stages=stages, path="./tmp")
-        gen.create_index()
         gen.create_stage(name="demo")
 
         self.assertTrue(os.path.exists("./tmp/stages/demo.py"))
@@ -55,3 +57,15 @@ class GeneratorTest(unittest.TestCase):
 
         self.assertTrue("def demo:" in contents)
 
+    def test_stages_generation(self):
+        stages = [{
+            "name": "demo",
+            }, {
+            "name": "stage"
+        }]
+
+        gen = generator.Generator(stages=stages, path="./tmp")
+        gen.create_stages()
+
+        self.assertTrue(os.path.exists("./tmp/stages/demo.py"))
+        self.assertTrue(os.path.exists("./tmp/stages/stage.py"))
