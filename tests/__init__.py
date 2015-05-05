@@ -1,7 +1,9 @@
 import unittest
 import os
 import shutil
+from click.testing import CliRunner
 from frojd_fabric_cli import generator
+from frojd_fabric_cli.scripts import init
 
 
 def read_file(path):
@@ -20,7 +22,7 @@ class GeneratorTest(unittest.TestCase):
 
     def tearDown(self):
         try:
-            shutil.rmtree("./tmp/stages")
+            shutil.rmtree("./tmp/")
         except OSError as exception:
             pass
 
@@ -90,3 +92,29 @@ class GeneratorTest(unittest.TestCase):
 
         contents = read_file("./tmp/stages/stage.py")
         self.assertTrue("env.forward_agent = True" in contents)
+
+
+class ConsoleScriptTest(unittest.TestCase):
+    def setUp(self):
+        try:
+            os.makedirs("./tmp/")
+        except OSError as exception:
+            pass
+
+    def tearDown(self):
+        try:
+            shutil.rmtree("./tmp/")
+        except OSError as exception:
+            pass
+    def test_init(self):
+        runner = CliRunner()
+
+        result = runner.invoke(init.main, [
+            "--stages=local,dev,live",
+            "--path=./tmp"
+        ])
+
+        assert result.exit_code == 0
+
+        self.assertTrue(os.path.exists("./tmp/stages"))
+        self.assertTrue(os.path.exists("./tmp/stages/local.py"))
