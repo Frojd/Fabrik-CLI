@@ -21,6 +21,16 @@ class Generator(object):
         self.environment = jinja2.Environment(loader=self.loader)
 
     def create_index(self):
+        # TODO: Check if file/folder already exist
+
+        # First we create the fabfile
+        template = self.environment.get_template("fabfile.py.txt")
+        output = template.render(stages=self.stages)
+
+        index_path = os.path.join(self.path, "fabfile.py")
+        self.write_file(output, index_path)
+
+        # After this we create a stages directory with a index file
         template = self.environment.get_template("index.py.txt")
         output = template.render(stages=self.stages)
 

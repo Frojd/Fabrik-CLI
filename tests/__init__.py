@@ -37,6 +37,7 @@ class GeneratorTest(unittest.TestCase):
         gen.create_index()
 
         self.assertTrue(os.path.exists("./tmp/stages"))
+        self.assertTrue(os.path.exists("./tmp/fabfile.py"))
         self.assertTrue(os.path.exists("./tmp/stages/__init__.py"))
 
         with self.assertRaises(OSError) as cm:
@@ -106,6 +107,7 @@ class ConsoleScriptTest(unittest.TestCase):
             shutil.rmtree("./tmp/")
         except OSError as exception:
             pass
+
     def test_init(self):
         runner = CliRunner()
 
