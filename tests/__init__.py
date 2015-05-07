@@ -1,9 +1,11 @@
 import unittest
 import os
 import shutil
+import git
 from click.testing import CliRunner
 from frojd_fabric_cli import generator
 from frojd_fabric_cli.scripts import init
+from frojd_fabric_cli import utils
 
 
 def read_file(path):
@@ -95,6 +97,25 @@ class GeneratorTest(unittest.TestCase):
         self.assertTrue("env.forward_agent = True" in contents)
 
 
+class GitDetection(unittest.TestCase):
+    def tearDown(self):
+        try:
+            shutil.rmtree("./tmp/")
+        except OSError as exception:
+            pass
+
+    def test_invalid_repro(self):
+        assert utils.has_git_repro("./tmp/") == False
+
+    def test_detect_repro(self):
+        git_url = "git@github.com:Frojd/Frojd-Fabric.git"
+
+        repo = git.Repo.clone_from(git_url, "./tmp")
+
+        assert utils.has_git_repro("./tmp/") == True
+        assert utils.get_git_remote("./tmp/") == git_url
+
+
 class ConsoleScriptTest(unittest.TestCase):
     def setUp(self):
         try:
@@ -120,3 +141,29 @@ class ConsoleScriptTest(unittest.TestCase):
 
         self.assertTrue(os.path.exists("./tmp/stages"))
         self.assertTrue(os.path.exists("./tmp/stages/local.py"))
+
+    def test_git_promp(self):
+        # TODO: Update setUp/tearDown logic
+        try:
+            shutil.rmtree("./tmp/")
+        except OSError as exception:
+            pass
+
+        git_url = "git@github.com:Frojd/Frojd-Fabric.git"
+        repo = git.Repo.clone_from(git_url, "./tmp")
+
+        runner = CliRunner()
+
+        result = runner.invoke(init.main, [
+            "--stages=local,dev,live",
+            "--path=./tmp"
+        ])
+
+        assert result.exit_code == 0
+        assert result.output.startswith("git repository [%s]" % git_url)
+
+        self.assertTrue(os.path.exists("./tmp/stages"))
+        self.assertTrue(os.path.exists("./tmp/stages/local.py"))
+
+        contents = read_file("./tmp/stages/__init__.py")
+        self.assertTrue("env.repro_url" in contents)

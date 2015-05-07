@@ -1,5 +1,6 @@
 import click
 from frojd_fabric_cli import generator
+from frojd_fabric_cli import utils
 
 
 @click.command()
@@ -12,13 +13,25 @@ def main(stages, path):
 
     formatted_stages = []
 
+    config = {}
+    params = {}
+
     for stage in stage_list:
         formatted_stages.append({
             "NAME": stage
         })
 
-    gen = generator.Generator(stages=formatted_stages, path=path)
+    if utils.has_git_repro(path):
+        repro_url = utils.get_git_remote(path)
+        repro_url = click.prompt("git repository", default=repro_url)
+
+        config["git"] = True
+        params["repro_url"] = repro_url
+
+    gen = generator.Generator(stages=formatted_stages, path=path,
+                              config=config, params=params)
+    gen.create_index()
     gen.create_stages()
 
-    click.echo(stage_list)
-    click.echo(path)
+    #click.echo(stage_list)
+    #click.echo(path)

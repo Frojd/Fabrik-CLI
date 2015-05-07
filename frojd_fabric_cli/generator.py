@@ -8,12 +8,17 @@ class Generator(object):
     path = None
     loader = None
     environment = None
+    config = None  # Flags
+    params = None  # Global settings written to index
 
-    def __init__(self, stages=None, path=None, *args, **kwargs):
+    def __init__(self, stages=None, path=None, config=None, params=None,
+                 *args, **kwargs):
         self.validate_stages(stages)
 
         self.stages = stages
         self.path = path
+        self.config = config
+        self.params = params
 
         current_dir = os.path.dirname(os.path.abspath(__file__))
         templates_dir = os.path.join(current_dir,  "templates")
@@ -32,7 +37,7 @@ class Generator(object):
 
         # After this we create a stages directory with a index file
         template = self.environment.get_template("index.py.txt")
-        output = template.render(stages=self.stages)
+        output = template.render(stages=self.stages, params=self.params)
 
         stage_dir = self.get_stages_path()
         os.makedirs(stage_dir)
