@@ -167,3 +167,30 @@ class ConsoleScriptTest(unittest.TestCase):
 
         contents = read_file("./tmp/stages/__init__.py")
         self.assertTrue("env.repro_url" in contents)
+
+    def test_recipe_prompt(self):
+        try:
+            shutil.rmtree("./tmp/")
+        except OSError as exception:
+            pass
+
+        git_url = "git@github.com:Frojd/Frojd-Fabric.git"
+        repo = git.Repo.clone_from(git_url, "./tmp")
+
+        runner = CliRunner()
+
+        result = runner.invoke(init.main, [
+            "--stages=local,dev,live",
+            "--path=./tmp",
+            "--recipe=wordpress"
+        ])
+
+        assert result.exit_code == 0
+        assert result.output.startswith("git repository [%s]" % git_url)
+
+        self.assertTrue(os.path.exists("./tmp/stages"))
+        self.assertTrue(os.path.exists("./tmp/stages/local.py"))
+
+        contents = read_file("./tmp/stages/live.py")
+        self.assertTrue("frojd_fabric.recipes import wordpress" in contents)
+
