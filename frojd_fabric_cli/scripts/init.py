@@ -6,7 +6,8 @@ from frojd_fabric_cli import utils
 @click.command()
 @click.option("--stages", default="stage,prod")
 @click.option("--path", default="./")
-def main(stages, path):
+@click.option("--recipe", default=False)
+def main(stages, path, recipe):
     stage_list = stages.split(u",")
     stage_list = map(unicode.strip, stage_list)
     stage_list = filter(None, stage_list)
@@ -27,6 +28,10 @@ def main(stages, path):
 
         config["git"] = True
         params["repro_url"] = repro_url
+
+    if recipe:
+        for stage in formatted_stages:
+            stage["RECIPE"] = recipe
 
     gen = generator.Generator(stages=formatted_stages, path=path,
                               config=config, params=params)
