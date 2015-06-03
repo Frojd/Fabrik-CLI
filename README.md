@@ -19,7 +19,13 @@ To install Frojd-Fabric you need Python 2.7, virtualenv and pip.
 
 ### Initialize
 
-`frojd_fabric --stages=local,stage,prod`
+```
+frojd_fabric
+    --stages=local,stage,prod
+    --path=/tmp/ (Optional)
+    --recipe=wordpress (Optional)
+```
+
 
 ## Roadmap
 
@@ -33,7 +39,7 @@ To install Frojd-Fabric you need Python 2.7, virtualenv and pip.
 ### Not yet implemented
 - Additional stage file config data
 - A way of auto generating fabricrc / stage config depending on recipe
-- Bundled back into Frojd-Fabric
+- Merged back into Frojd-Fabric
 
 
 ## Developing
