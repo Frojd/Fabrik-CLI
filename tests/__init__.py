@@ -96,6 +96,23 @@ class GeneratorTest(unittest.TestCase):
         contents = read_file("./tmp/stages/stage.py")
         self.assertTrue("env.forward_agent = True" in contents)
 
+    def test_fabricrc_settings(self):
+        stages = [{
+            "NAME": "stage",
+            "FORWARD_AGENT": "True"
+        }, {
+            "NAME": "prod",
+            "FORWARD_AGENT": "True"
+        }]
+
+        gen = generator.Generator(stages=stages, path="./tmp")
+        gen.create_index()
+
+        self.assertTrue(os.path.exists("./tmp/fabricrc.txt"))
+
+        contents = read_file("./tmp/fabricrc.txt")
+        self.assertTrue("STAGE_HOST=" in contents)
+
 
 class GitDetection(unittest.TestCase):
     def tearDown(self):
