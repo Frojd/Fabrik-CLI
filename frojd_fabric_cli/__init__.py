@@ -10,7 +10,7 @@ frojd_fabric_cli
 
 
 __title__ = "frojd_fabric_cli"
-__version__ = "1.0.3"
-__build__ = 103
+__version__ = "1.0.4"
+__build__ = 104
 __license__ = "MIT"
 __copyright__ = "Copyright 2015 Fröjd Interactive AB"
