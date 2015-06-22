@@ -61,7 +61,7 @@ class GeneratorTest(unittest.TestCase):
         self.assertTrue(os.path.exists("./tmp/stages/demo.py"))
         contents = read_file("./tmp/stages/demo.py")
 
-        self.assertTrue("def demo:" in contents)
+        self.assertTrue("def demo():" in contents)
 
     def test_stages_generation(self):
         stages = [{
