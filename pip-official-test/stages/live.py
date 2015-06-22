@@ -1,5 +1,5 @@
 """
-{{ stage.NAME }} environment
+live environment
 """
 
 from fabric.state import env
@@ -8,12 +8,12 @@ from frojd_fabric.utils import get_stage_var
 
 
 @task
-def {{ stage.NAME }}():
-    {% if stage.RECIPE %}# Recipe
-    from frojd_fabric.recipes import {{ stage.RECIPE }}{% endif %}
+def live:
+    # Recipe
+    from frojd_fabric.recipes import wordpress
 
     # Metadata
-    env.stage = "{{ stage.NAME }}"
+    env.stage = "live"
 
     # VC
     env.branch = None
@@ -23,5 +23,4 @@ def {{ stage.NAME }}():
     env.user = get_stage_var("USER")
     env.password = get_stage_var("PASSWORD", "")
     env.key_filename = get_stage_var("KEY_FILENAME")
-    env.forward_agent = {{ stage.FORWARD_AGENT | default("False") }}
-
+    env.forward_agent = False

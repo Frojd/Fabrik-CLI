@@ -45,6 +45,13 @@ class Generator(object):
         index_path = os.path.join(stage_dir, "__init__.py")
         self.write_file(output, index_path)
 
+        # Create fabric settings file
+        template = self.environment.get_template("fabricrc.txt")
+        output = template.render(stages=self.stages, params=self.params)
+
+        index_path = os.path.join(self.path, "fabricrc.txt")
+        self.write_file(output, index_path)
+
     def create_stage(self, name=None):
         template = self.environment.get_template("stage.py.txt")
         stage = self.get_stage(name)
