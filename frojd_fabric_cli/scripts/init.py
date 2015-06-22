@@ -19,7 +19,8 @@ def main(stages, path, recipe):
 
     for stage in stage_list:
         formatted_stages.append({
-            "NAME": stage
+            "NAME": stage,
+            "LOCAL": stage == "local"
         })
 
     if utils.has_git_repro(path):

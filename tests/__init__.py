@@ -76,6 +76,20 @@ class GeneratorTest(unittest.TestCase):
         self.assertTrue(os.path.exists("./tmp/stages/demo.py"))
         self.assertTrue(os.path.exists("./tmp/stages/stage.py"))
 
+    def test_local_stage_generation(self):
+        stages = [{
+            "NAME": "local",
+            "LOCAL": True
+        }]
+
+        gen = generator.Generator(stages=stages, path="./tmp")
+        gen.create_stages()
+
+        self.assertTrue(os.path.exists("./tmp/stages/local.py"))
+        contents = read_file("./tmp/stages/local.py")
+
+        self.assertTrue("env.run = elocal" in contents)
+
     def test_invalid_stagename(self):
         stages = [{
             "NAME": "demo!"
@@ -210,4 +224,8 @@ class ConsoleScriptTest(unittest.TestCase):
 
         contents = read_file("./tmp/stages/live.py")
         self.assertTrue("frojd_fabric.recipes import wordpress" in contents)
+
+        contents = read_file("./tmp/stages/local.py")
+        self.assertTrue("from fabric.context_managers import lcd" in contents)
+        self.assertTrue("env.password = " not in contents)
 
