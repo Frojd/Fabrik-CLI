@@ -38,6 +38,7 @@ setup(
     entry_points={
         "console_scripts": [
             "frojd_fabric = frojd_fabric_cli.scripts.init:main",
+            "cleanup = frojd_fabric_cli.scripts.cleanup:main",
         ]
     },
 )

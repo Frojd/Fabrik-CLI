@@ -60,13 +60,27 @@ To install Frojd-Fabric you need Python 2.7, virtualenv and pip.
 
 
 	
-### Command
+### Commands
+
+#### Setup
+
+Generates deploy files
 
 ```
 frojd_fabric
     --stages=local,stage,prod (Your deploy stages)
     --path=/tmp/ (Path to the project, optional)
     --recipe=wordpress (The recipe you will be use, optional)
+```
+
+#### Cleanup
+
+Removes deploy files
+
+```
+cleanup
+    --path=/tmp/ (Path to the project, optional)
+    --force (Override prompt)
 ```
 
 
