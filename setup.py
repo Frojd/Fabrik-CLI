@@ -37,7 +37,7 @@ setup(
     zip_safe=False,
     entry_points={
         "console_scripts": [
-            "frojd_fabric = frojd_fabric_cli.scripts.init:main",
+            "frojd_fabric = frojd_fabric_cli.scaffolding.scripts.init:main",
         ]
     },
 )

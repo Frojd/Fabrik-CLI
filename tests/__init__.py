@@ -3,8 +3,8 @@ import os
 import shutil
 import git
 from click.testing import CliRunner
-from frojd_fabric_cli import generator
-from frojd_fabric_cli.scripts import init
+from frojd_fabric_cli.scaffolding import generator
+from frojd_fabric_cli.scaffolding.scripts import init
 from frojd_fabric_cli import utils
 
 
@@ -19,13 +19,13 @@ class GeneratorTest(unittest.TestCase):
     def setUp(self):
         try:
             os.makedirs("./tmp/")
-        except OSError as exception:
+        except OSError as exception:  # NOQA
             pass
 
     def tearDown(self):
         try:
             shutil.rmtree("./tmp/")
-        except OSError as exception:
+        except OSError as exception:  # NOQA
             pass
 
     def test_index_generation(self):
@@ -42,7 +42,7 @@ class GeneratorTest(unittest.TestCase):
         self.assertTrue(os.path.exists("./tmp/fabfile.py"))
         self.assertTrue(os.path.exists("./tmp/stages/__init__.py"))
 
-        with self.assertRaises(OSError) as cm:
+        with self.assertRaises(OSError) as cm:  # NOQA
             gen.create_index()
 
         contents = read_file("./tmp/stages/__init__.py")
@@ -81,7 +81,7 @@ class GeneratorTest(unittest.TestCase):
             "NAME": "demo!"
         }]
 
-        with self.assertRaises(Exception) as cm:
+        with self.assertRaises(Exception) as cm:  # NOQA
             generator.Generator(stages=stages, path="./tmp")
 
     def test_ssh_stage_info(self):
@@ -118,7 +118,7 @@ class GitDetection(unittest.TestCase):
     def tearDown(self):
         try:
             shutil.rmtree("./tmp/")
-        except OSError as exception:
+        except OSError as exception:  # NOQA
             pass
 
     def test_invalid_repro(self):
@@ -137,7 +137,7 @@ class ConsoleScriptTest(unittest.TestCase):
     def setUp(self):
         try:
             os.makedirs("./tmp/")
-        except OSError as exception:
+        except OSError as exception:  # NOQA
             pass
 
     def tearDown(self):

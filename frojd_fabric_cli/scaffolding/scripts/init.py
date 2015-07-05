@@ -1,6 +1,6 @@
 import click
-from frojd_fabric_cli import generator
 from frojd_fabric_cli import utils
+from frojd_fabric_cli.scaffolding import generator
 
 
 @click.command()
@@ -37,6 +37,3 @@ def main(stages, path, recipe):
                               config=config, params=params)
     gen.create_index()
     gen.create_stages()
-
-    #click.echo(stage_list)
-    #click.echo(path)
