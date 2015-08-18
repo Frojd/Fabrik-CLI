@@ -139,7 +139,7 @@ class GitDetection(unittest.TestCase):
         assert utils.has_git_repro("./tmp/") == False
 
     def test_detect_repro(self):
-        git_url = "git://git@github.com/Frojd/Frojd-Fabric.git"
+        git_url = "git://github.com/Frojd/Fabrik.git"
 
         repo = git.Repo.clone_from(git_url, "./tmp")
 
@@ -180,7 +180,7 @@ class ConsoleScriptTest(unittest.TestCase):
         except OSError as exception:
             pass
 
-        git_url = "git://git@github.com/Frojd/Frojd-Fabric.git"
+        git_url = "git://github.com/Frojd/Fabrik.git"
         repo = git.Repo.clone_from(git_url, "./tmp")
 
         runner = CliRunner()
@@ -205,7 +205,7 @@ class ConsoleScriptTest(unittest.TestCase):
         except OSError as exception:
             pass
 
-        git_url = "git://git@github.com/Frojd/Frojd-Fabric.git"
+        git_url = "git://github.com/Frojd/Fabrik.git"
         repo = git.Repo.clone_from(git_url, "./tmp")
 
         runner = CliRunner()
@@ -249,7 +249,7 @@ class CleanupTest(unittest.TestCase):
         except OSError as exception:
             pass
 
-        git_url = "git://git@github.com/Frojd/Frojd-Fabric.git"
+        git_url = "git://github.com/Frojd/Fabrik.git"
         repo = git.Repo.clone_from(git_url, "./tmp")
 
         runner = CliRunner()
