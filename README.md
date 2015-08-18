@@ -1,8 +1,8 @@
-# Frojd-Fabric-Cli
-This is a Cli tool for Frojd-Fabric that will generate files and supply base settings.
+# Fabrik-Cli
+This is a Cli tool for Fabrik that will generate files and supply base settings.
 
 ## Requirements
-To install Frojd-Fabric you need Python 2.7, virtualenv and pip.
+To install Fabrik you need Python 2.7, virtualenv and pip.
 
 ## Installation
 
@@ -10,10 +10,10 @@ To install Frojd-Fabric you need Python 2.7, virtualenv and pip.
 - `pip install frojd_fabric_cli`
 
 ### Unstable
-- `pip install git+git://github.com/Frojd/Frojd-Fabric-CLI.git@develop`
+- `pip install git+git://github.com/Frojd/Fabrik-CLI.git@develop`
 
 ### For development
-- `git clone git@github.com:Frojd/Frojd-Fabric.git`
+- `git clone git@github.com:Frojd/Fabrik-CLI.git`
 - `virtualenv venv`
 - `source venv/bin/activate`
 - `pip install --editable .`
@@ -96,7 +96,7 @@ cleanup
 ### Not yet implemented
 - Additional stage file config data
 - A way of auto generating fabricrc / stage config depending on recipe
-- Merged back into Frojd-Fabric
+- Merged back into Fabrik
 
 
 ## Developing
@@ -117,4 +117,4 @@ cleanup
 Want to contribute? Awesome. Just send a pull request.
 
 ## Licence
-Frojd-Fabric-Cli is released under the [MIT License](http://www.opensource.org/licenses/MIT).
+Fabrik-Cli is released under the [MIT License](http://www.opensource.org/licenses/MIT).
