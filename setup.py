@@ -28,6 +28,14 @@ requires = parse_requirements("requirements/tests.txt",
                               session=pip.download.PipSession())
 tests_requires = [str(ir.req) for ir in requires]
 
+# Convert markdown to rst
+try:
+    from pypandoc import convert
+    long_description = convert("README.md", "rst")
+except:
+    long_description = ""
+
+
 setup(
     name="frojd_fabric_cli",
     version=frojd_fabric_cli.__version__,

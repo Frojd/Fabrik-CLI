@@ -1,5 +1,3 @@
-# Extend base.txt
+# Extend install.txt
 -r install.txt
 
-# Add develpment extra requirements here
-coverage==3.7.1
