@@ -37,6 +37,11 @@ except:
 setup(
     name="fabrik_cli",
     version=frojd_fabric_cli.__version__,
+    description=("CLI tool for scaffolding fabrik files "),
+    long_description=long_description,
+    author="Fröjd",
+    author_email="martin.sandstrom@frojd.se",
+    url="https://github.com/frojd/fabrik-cli",
     packages=packages,
     include_package_data=True,
     install_requires=install_requires,
@@ -45,7 +50,7 @@ setup(
     zip_safe=False,
     entry_points={
         "console_scripts": [
-            "fabrik",
+            "fabrik = frojd_fabric_cli.scripts.init:main",
             "cleanup = frojd_fabric_cli.scripts.cleanup:main",
         ]
     },
