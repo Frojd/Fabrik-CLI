@@ -17,9 +17,7 @@ if sys.argv[-1] == "publish":
 package_exclude = ("tests*", "examples*")
 packages = find_packages(exclude=package_exclude)
 
-with open("README.md") as f:
-    readme = f.read()
-
+# Install dependencies
 requires = parse_requirements("requirements/install.txt",
                               session=pip.download.PipSession())
 install_requires = [str(ir.req) for ir in requires]
@@ -37,7 +35,7 @@ except:
 
 
 setup(
-    name="frojd_fabric_cli",
+    name="fabrik_cli",
     version=frojd_fabric_cli.__version__,
     packages=packages,
     include_package_data=True,
@@ -47,7 +45,7 @@ setup(
     zip_safe=False,
     entry_points={
         "console_scripts": [
-            "frojd_fabric = frojd_fabric_cli.scripts.init:main",
+            "fabrik",
             "cleanup = frojd_fabric_cli.scripts.cleanup:main",
         ]
     },

@@ -2,14 +2,14 @@
 # -*- coding: utf-8 -*-
 
 """
-frojd_fabric_cli
+fabrik_cli
 ------------
 :copyright: (c) 2015 by Fröjd Interactive AB
 :license: MIT, see LICENSE for more details.
 """
 
 
-__title__ = "frojd_fabric_cli"
+__title__ = "fabrik_cli"
 __version__ = "1.0.4"
 __build__ = 104
 __license__ = "MIT"
