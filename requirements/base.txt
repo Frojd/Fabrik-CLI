@@ -1,4 +1,0 @@
-jinja2
-frojd_fabric
-click
-GitPython

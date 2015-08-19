@@ -4,7 +4,7 @@ import shutil
 import git
 from click.testing import CliRunner
 from frojd_fabric_cli import generator
-from frojd_fabric_cli.scripts import init
+from frojd_fabric_cli.scripts import init, cleanup
 from frojd_fabric_cli import utils
 
 
@@ -76,6 +76,20 @@ class GeneratorTest(unittest.TestCase):
         self.assertTrue(os.path.exists("./tmp/stages/demo.py"))
         self.assertTrue(os.path.exists("./tmp/stages/stage.py"))
 
+    def test_local_stage_generation(self):
+        stages = [{
+            "NAME": "local",
+            "LOCAL": True
+        }]
+
+        gen = generator.Generator(stages=stages, path="./tmp")
+        gen.create_stages()
+
+        self.assertTrue(os.path.exists("./tmp/stages/local.py"))
+        contents = read_file("./tmp/stages/local.py")
+
+        self.assertTrue("env.run = elocal" in contents)
+
     def test_invalid_stagename(self):
         stages = [{
             "NAME": "demo!"
@@ -125,7 +139,7 @@ class GitDetection(unittest.TestCase):
         assert utils.has_git_repro("./tmp/") == False
 
     def test_detect_repro(self):
-        git_url = "git@github.com:Frojd/Frojd-Fabric.git"
+        git_url = "git://github.com/Frojd/Fabrik.git"
 
         repo = git.Repo.clone_from(git_url, "./tmp")
 
@@ -166,7 +180,7 @@ class ConsoleScriptTest(unittest.TestCase):
         except OSError as exception:
             pass
 
-        git_url = "git@github.com:Frojd/Frojd-Fabric.git"
+        git_url = "git://github.com/Frojd/Fabrik.git"
         repo = git.Repo.clone_from(git_url, "./tmp")
 
         runner = CliRunner()
@@ -191,7 +205,7 @@ class ConsoleScriptTest(unittest.TestCase):
         except OSError as exception:
             pass
 
-        git_url = "git@github.com:Frojd/Frojd-Fabric.git"
+        git_url = "git://github.com/Frojd/Fabrik.git"
         repo = git.Repo.clone_from(git_url, "./tmp")
 
         runner = CliRunner()
@@ -211,3 +225,55 @@ class ConsoleScriptTest(unittest.TestCase):
         contents = read_file("./tmp/stages/live.py")
         self.assertTrue("frojd_fabric.recipes import wordpress" in contents)
 
+        contents = read_file("./tmp/stages/local.py")
+        self.assertTrue("from fabric.context_managers import lcd" in contents)
+        self.assertTrue("env.password = " not in contents)
+
+
+class CleanupTest(unittest.TestCase):
+    def setUp(self):
+        try:
+            os.makedirs("./tmp/")
+        except OSError as exception:
+            pass
+
+    def tearDown(self):
+        try:
+            shutil.rmtree("./tmp/")
+        except OSError as exception:
+            pass
+
+    def test_cleanup(self):
+        try:
+            shutil.rmtree("./tmp/")
+        except OSError as exception:
+            pass
+
+        git_url = "git://github.com/Frojd/Fabrik.git"
+        repo = git.Repo.clone_from(git_url, "./tmp")
+
+        runner = CliRunner()
+
+        result = runner.invoke(init.main, [
+            "--stages=local,dev,live",
+            "--path=./tmp"
+        ])
+
+        result = runner.invoke(cleanup.main, [
+            "--path=./tmp",
+        ])
+
+        assert result.exit_code == 1
+        assert result.output.startswith("Do you want to continue?")
+
+        result = runner.invoke(cleanup.main, [
+            "--path=./tmp",
+            "--force"
+        ])
+
+        assert result.exit_code == 0
+
+        self.assertFalse(os.path.exists("./tmp/fabricrc.txt"))
+        self.assertFalse(os.path.exists("./tmp/stages"))
+        self.assertFalse(os.path.exists("./tmp/stages/local.py"))
+        self.assertFalse(os.path.exists("./tmp/fabfile.py"))
