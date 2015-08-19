@@ -10,7 +10,7 @@ fabrik_cli
 
 
 __title__ = "fabrik_cli"
-__version__ = "1.1.0"
-__build__ = 110
+__version__ = "1.1.1"
+__build__ = 111
 __license__ = "MIT"
 __copyright__ = "Copyright 2015 Fröjd Interactive AB"
