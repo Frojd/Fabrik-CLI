@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/Frojd/Fabrik-CLI.svg?branch=master)](https://travis-ci.org/Frojd/Fabrik-CLI)
+[![PyPI version](https://badge.fury.io/py/fabrik-cli.svg)](http://badge.fury.io/py/fabrik-cli)
+
 # Fabrik-Cli
 This is a Cli tool for Fabrik that will generate files and supply base settings.
 
