@@ -70,7 +70,7 @@ To install Fabrik you need Python 2.7, virtualenv and pip.
 Generates deploy files
 
 ```
-fabrik
+fabrik-cli
     --stages=local,stage,prod (Your deploy stages)
     --path=/tmp/ (Path to the project, optional)
     --recipe=wordpress (The recipe you will be use, optional)
