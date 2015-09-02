@@ -50,7 +50,7 @@ setup(
     zip_safe=False,
     entry_points={
         "console_scripts": [
-            "fabrik = frojd_fabric_cli.scripts.init:main",
+            "fabrik-cli = frojd_fabric_cli.scripts.init:main",
             "cleanup = frojd_fabric_cli.scripts.cleanup:main",
         ]
     },

@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/Frojd/Fabrik-CLI.svg?branch=master)](https://travis-ci.org/Frojd/Fabrik-CLI)
+[![PyPI version](https://badge.fury.io/py/fabrik-cli.svg)](http://badge.fury.io/py/fabrik-cli)
+
 # Fabrik-Cli
 This is a Cli tool for Fabrik that will generate files and supply base settings.
 
@@ -67,7 +70,7 @@ To install Fabrik you need Python 2.7, virtualenv and pip.
 Generates deploy files
 
 ```
-fabrik
+fabrik-cli
     --stages=local,stage,prod (Your deploy stages)
     --path=/tmp/ (Path to the project, optional)
     --recipe=wordpress (The recipe you will be use, optional)
