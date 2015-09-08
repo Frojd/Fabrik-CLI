@@ -3,9 +3,9 @@ import os
 import shutil
 import git
 from click.testing import CliRunner
-from frojd_fabric_cli import generator
-from frojd_fabric_cli.scripts import init, cleanup
-from frojd_fabric_cli import utils
+from fabrik_cli import generator
+from fabrik_cli.scripts import init, cleanup
+from fabrik_cli import utils
 
 
 def read_file(path):

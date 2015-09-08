@@ -7,7 +7,7 @@ import pip
 
 from setuptools import setup, find_packages
 from pip.req import parse_requirements
-import frojd_fabric_cli
+import fabrik_cli
 
 
 if sys.argv[-1] == "publish":
@@ -36,7 +36,7 @@ except:
 
 setup(
     name="fabrik_cli",
-    version=frojd_fabric_cli.__version__,
+    version=fabrik_cli.__version__,
     description=("CLI tool for scaffolding fabrik files "),
     long_description=long_description,
     author="Fröjd",
@@ -50,8 +50,8 @@ setup(
     zip_safe=False,
     entry_points={
         "console_scripts": [
-            "fabrik-cli = frojd_fabric_cli.scripts.init:main",
-            "cleanup = frojd_fabric_cli.scripts.cleanup:main",
+            "fabrik-cli = fabrik_cli.scripts.init:main",
+            "cleanup = fabrik_cli.scripts.cleanup:main",
         ]
     },
 )
