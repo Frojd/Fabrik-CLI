@@ -223,7 +223,7 @@ class ConsoleScriptTest(unittest.TestCase):
         self.assertTrue(os.path.exists("./tmp/stages/local.py"))
 
         contents = read_file("./tmp/stages/live.py")
-        self.assertTrue("frojd_fabric.recipes import wordpress" in contents)
+        self.assertTrue("fabrik.recipes import wordpress" in contents)
 
         contents = read_file("./tmp/stages/local.py")
         self.assertTrue("from fabric.context_managers import lcd" in contents)
