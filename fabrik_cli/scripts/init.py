@@ -1,6 +1,6 @@
 import click
-from frojd_fabric_cli import generator
-from frojd_fabric_cli import utils
+from fabrik_cli import generator
+from fabrik_cli import utils
 
 
 @click.command()

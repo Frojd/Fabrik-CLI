@@ -3,9 +3,9 @@ import os
 import shutil
 import git
 from click.testing import CliRunner
-from frojd_fabric_cli import generator
-from frojd_fabric_cli.scripts import init, cleanup
-from frojd_fabric_cli import utils
+from fabrik_cli import generator
+from fabrik_cli.scripts import init, cleanup
+from fabrik_cli import utils
 
 
 def read_file(path):
@@ -223,7 +223,7 @@ class ConsoleScriptTest(unittest.TestCase):
         self.assertTrue(os.path.exists("./tmp/stages/local.py"))
 
         contents = read_file("./tmp/stages/live.py")
-        self.assertTrue("frojd_fabric.recipes import wordpress" in contents)
+        self.assertTrue("fabrik.recipes import wordpress" in contents)
 
         contents = read_file("./tmp/stages/local.py")
         self.assertTrue("from fabric.context_managers import lcd" in contents)

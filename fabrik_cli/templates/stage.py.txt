@@ -4,17 +4,17 @@
 
 from fabric.state import env
 from fabric.decorators import task
-from frojd_fabric.utils import get_stage_var
+from fabrik.utils import get_stage_var
 {% if stage.LOCAL %}
 from fabric.context_managers import lcd
-from frojd_fabric.utils.elocal import elocal
+from fabrik.utils.elocal import elocal
 {% endif %}
 
 
 @task
 def {{ stage.NAME }}():
     {% if stage.RECIPE %}# Recipe
-    from frojd_fabric.recipes import {{ stage.RECIPE }}{% endif %}
+    from fabrik.recipes import {{ stage.RECIPE }}{% endif %}
 
     {% if stage.LOCAL %}
     # Local versions of run/cd/exists
