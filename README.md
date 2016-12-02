@@ -4,6 +4,7 @@
 # Fabrik-Cli
 This is a Cli tool for Fabrik that will generate files and supply base settings.
 
+
 ## Requirements
 To install Fabrik you need Python 2.7, virtualenv and pip.
 
@@ -21,53 +22,54 @@ To install Fabrik you need Python 2.7, virtualenv and pip.
 - `source venv/bin/activate`
 - `pip install --editable .`
 
+
 ## Getting started
 
 ### Walkthrough
 
 1. First go to your project folder.
 
-	`cd myproject`
-	
+    `cd myproject`
+
 2. Setup a virtual environment
-	
-	`virtualenv venv`
-	
+
+    `virtualenv venv`
+
 3. Activate it
 
-	`source venv/bin/activate`
-	
+    `source venv/bin/activate`
+
 4. Now time to install
 
-	`pip install fabrik_cli`
-	
+    `pip install fabrik_cli`
+
 5. **(Optional)** Now is a good time to setup git, the cli will auto detect this if present
 
-	`git init ...`
-	
+    `git init ...`
+
 6. Time to run the script. lets create a deploy environment that concist of two servers using a wordpress recipe.
 
-	`fabrik --stages=stage,prod --recipe=wordpress`
-	
-	This command will create the following files.
-	
-	```
-	/fabfile.py
-	/stages/
-		__init__.py
-		stage.py
-		prod.py
-	```
-	
-	This script will create the necessary files and add git repro setting (if present) and recipe import. Once generated, you'll need to add SSH settings and recipe unique settings by editing the files.
+    `fabrik-cli --stages=stage,prod --recipe=wordpress`
+
+    This command will create the following files.
+
+    ```
+    /fabfile.py
+    /stages/
+        __init__.py
+        stage.py
+        prod.py
+    ```
+
+    This script will create the necessary files and add git repro setting (if present) and recipe import. Once generated, you'll need to add SSH settings and recipe unique settings by editing the files.
 
 
-	
+
 ### Commands
 
 #### Setup
 
-Generates deploy files
+Generate deploy files
 
 ```
 fabrik-cli
@@ -78,7 +80,7 @@ fabrik-cli
 
 #### Cleanup
 
-Removes deploy files
+Remove deploy files
 
 ```
 cleanup
@@ -89,28 +91,25 @@ cleanup
 
 ## Roadmap
 
-### Implemented
-- Generate stage folder
-- __init__ in stage folder
-- Individual stage files
-- Cli interface
-- Repro url
-
-### Not yet implemented
-- Additional stage file config data
-- A way of auto generating fabricrc / stage config depending on recipe
-- Merged back into Fabrik
+- [x] Generate stage folder
+- [x] `__init__` in stage folder
+- [x] Individual stage files
+- [x] Cli interface
+- [x] Repro url
+- [ ] Additional stage file config data
+- [ ] A way of auto generating fabricrc / stage config depending on recipe
+- [ ] Merged back into Fabrik
 
 
 ## Developing
 - Coverage
-	- `coverage run runtests.py`
-	- `coverage report -m`
-	- `coverage html`
-	- `open htmlcov/index.html`
-	- `coverage erase`
+    - `coverage run runtests.py`
+    - `coverage report -m`
+    - `coverage html`
+    - `open htmlcov/index.html`
+    - `coverage erase`
 - Test
-	- `python runtests.py`
+    - `python runtests.py`
 
 ## Code guide
 - Pep8
