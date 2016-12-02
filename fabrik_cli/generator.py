@@ -23,7 +23,10 @@ class Generator(object):
         current_dir = os.path.dirname(os.path.abspath(__file__))
         templates_dir = os.path.join(current_dir,  "templates")
         self.loader = jinja2.FileSystemLoader(templates_dir)
-        self.environment = jinja2.Environment(loader=self.loader)
+        self.environment = jinja2.Environment(loader=self.loader,
+                                              trim_blocks=True,
+                                              lstrip_blocks=True
+                                              )
 
     def create_index(self):
         # TODO: Check if file/folder already exist
