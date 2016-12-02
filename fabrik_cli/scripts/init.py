@@ -1,4 +1,5 @@
 import click
+
 from fabrik_cli import generator
 from fabrik_cli import utils
 
@@ -38,6 +39,3 @@ def main(stages, path, recipe):
                               config=config, params=params)
     gen.create_index()
     gen.create_stages()
-
-    #click.echo(stage_list)
-    #click.echo(path)

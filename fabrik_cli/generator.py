@@ -64,7 +64,7 @@ class Generator(object):
         if not os.path.exists(stage_dir):
             os.makedirs(stage_dir)
 
-        file_path = os.path.join(stage_dir, "%s.py" % name)
+        file_path = os.path.join(stage_dir, "{}.py".format(name))
         self.write_file(output, file_path)
 
     def create_stages(self):

@@ -1,6 +1,6 @@
-{% if params %}from fabric.state import env
+{% if params %}from fabric.state import env  # NOQA
 {% endif %}
-{% for stage in stages %}from {{ stage.NAME }} import {{ stage.NAME }}
+{% for stage in stages %}from {{ stage.NAME }} import {{ stage.NAME }}  # NOQA
 {% endfor %}
 
 {% if params %}

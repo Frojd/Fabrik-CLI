@@ -13,7 +13,7 @@ To install Fabrik you need Python 2.7, virtualenv and pip.
 ### Stable
 - `pip install fabrik_cli`
 
-### Unstable
+### "Unstable"
 - `pip install git+git://github.com/Frojd/Fabrik-CLI.git@develop`
 
 ### For development
