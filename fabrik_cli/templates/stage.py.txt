@@ -14,8 +14,11 @@ from fabrik.utils.elocal import elocal
 
 @task
 def {{ stage.NAME }}():
-    {% if stage.RECIPE %}# Recipe
-    from fabrik.recipes import {{ stage.RECIPE }}{% endif %}
+    {% if stage.RECIPE %}
+    # Recipe
+    from fabrik.recipes import {{ stage.RECIPE }}
+    {{ stage.RECIPE }}.register()
+    {% endif %}
 
     {% if stage.LOCAL %}
     # Local versions of run/cd/exists
